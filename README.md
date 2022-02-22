@@ -4,9 +4,9 @@
 While writting an [actix-web](https://actix.rs/) application I decided I wanted to use
 sqlx's streaming [fetch](https://docs.rs/sqlx-core/0.5.11/sqlx_core/query/struct.Query.html#method.fetch)
 method to stream database results back to the client, significantly reducing memory usage
-larger datasets. This code shows a possible solution using self-referential structs.
+for larger datasets. This code shows a possible solution using self-referential structs.
 
-The primary issue is one of lifetimes and ownership. A sqlx query references three things:
+The primary issue is one of lifetimes and ownership \(is't it always?\). A sqlx query references three things:
 
   * a SQL query string
   * some number of arguments bound to the query
@@ -15,9 +15,9 @@ The primary issue is one of lifetimes and ownership. A sqlx query references thr
 Most importantly: the query does not own these things. It only retains references, borrows them with
 associated lifetimes ensuring the future lives enough.
 
-With typical usage the query future is awaited before the query string, arguments and pool are
-dropped. However when using actix-web the future is returned at the end of the handler and out
-lives the query string, arguments, and pool.
+With typical usage the query future is awaited before the query string, arguments, and pool are
+dropped. However when using actix-web the future is returned at the end of the handler and outlives
+the query string, arguments, and pool.
 
 ```rust
 /// This example shows a naive solution that DOES NOT WORK due to the borrow checker
@@ -38,9 +38,15 @@ pub fn list_users(
         .fetch(&pool.clone());
 
     // Does not work!
-    HttpResponse::Ok().streaming(stream)
+    HttpResponse::Ok().streaming(convert_to_bytes_stream(stream))
 
     // sql, params, and pool's copy are dropped here
+}
+
+pub fn convert_to_bytes_stream(
+    stream: Stream<Item = Result<SqliteRow, sqlx::Error>>,
+) -> S: Stream<Item = Result<Bytes, Box<dyn Error>>> {
+    // Implementation not shown
 }
 ```
 
@@ -75,6 +81,10 @@ that trait implementers must define.
 ## Questions
 
 I'm not certain that I need `UnsafeCell`. I'd like to explore if `Cell` or `RefCell` might work instead.
+
+Could this be solved with lifetimes alone? I don't think so. One interesting point is that `HttpResponseBuilder::streaming()` is
+bound by the `'static` [lifetime](https://docs.rs/actix-web/4.0.0-rc.3/actix_web/struct.HttpResponseBuilder.html#method.streaming).
+I guess they couldn't figure out how to bound it to the lifetime of the request and just stuck `'static` on it?
 
 ## Motivations for this Project
 
