@@ -73,7 +73,15 @@ I use an `Option<BoxFuture>` to allow me to construct our struct with everything
 
 ## Further work
 
-I have yet to test this with actix-web, but I believe it should work fine. I would like to come up with a way
+Update: I've implemented a simple actix-web server using HttpResponseBuilder::streaming() and it
+works as expected! I was able to stream data from my db at 10MiBps while the memory usage remained
+constant. Each additional request only used a few hundred more bytes. There is one url handler for
+/ which accepts a query parameter "results". It defaults to 10, but you can specify any value you
+want and it will stream that many results from the users table to you. I still want to make the
+code more generic, where the implementer can decide what data is stored and how to bind it to the
+query.
+
+~~I have yet to test this with actix-web-, but I believe it should work fine.~~ I would like to come up with a way
 to abstract the owned data, query string and arguments. Perhaps turn this in to a trait and store the data in an
 associated type that implemeters must define. I would also delegate query construction and argument binding to methods
 that trait implementers must define.
