@@ -75,7 +75,7 @@ I use an `Option<BoxFuture>` to allow me to construct our struct with everything
 
 I have yet to test this with actix-web, but I believe it should work fine. I would like to come up with a way
 to abstract the owned data, query string and arguments. Perhaps turn this in to a trait and store the data in an
-associated type that implemeters must define. I would also delgate query construction and argument binding to methods
+associated type that implemeters must define. I would also delegate query construction and argument binding to methods
 that trait implementers must define.
 
 ## Questions
@@ -88,10 +88,13 @@ I guess they couldn't figure out how to bound it to the lifetime of the request 
 
 ## Motivations for this Project
 
-I got stuck trying to implelment streaming. I tried multiple different things: implementing Stream myself but
+I got stuck trying to implement streaming. I tried multiple different things: implementing Stream myself but
 running afoul of the borrow checker, sticking the data in Arc types, using [owning_ref](https://kimundi.github.io/owning-ref-rs/owning_ref/index.html),
-searching google and finding someone elements implementing a self-referential solution using [ouroboros](https://docs.rs/ouroboros/0.14.2/ouroboros/index.html).
+searching google and finding [someone else](https://github.com/rich-murphey/sqlx-actix-streaming) implementing a
+self-referential solution using [ouroboros](https://docs.rs/ouroboros/0.14.2/ouroboros/index.html).
 Ultimately the ouroboros solution worked and I believe this solution with `UnsafeCell` + `Pin` will work.
+I wanted to explore the Pin solution because I read it is considered the supported solution to this problem
+by the core Rust developers.
 
 I'm posting this in the hope that it might be useful for someone else.
 
