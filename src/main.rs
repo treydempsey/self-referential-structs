@@ -129,7 +129,7 @@ impl<'f> Stream for WrappedStream<'f> {
     }
 }
 
-#[tokio::main(flavor = "current_thread")]
+#[tokio::main]
 async fn main() -> Result<(), sqlx::Error> {
     let pool = SqlitePool::connect("sqlite://dev.db").await.expect("connected to dev.db");
 
