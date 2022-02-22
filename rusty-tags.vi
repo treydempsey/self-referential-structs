@@ -1410,6 +1410,7 @@ Stream	/home/trey/.cargo/registry/src/github.com-1ecc6299db9ec823/actix-web-4.0.
 Stream	/home/trey/.cargo/registry/src/github.com-1ecc6299db9ec823/actix-web-4.0.0-rc.3/src/service.rs	/^    type Stream = BoxedPayloadStream;$/;"	T
 StreamDeserializer	/home/trey/.cargo/registry/src/github.com-1ecc6299db9ec823/serde_json-1.0.79/src/de.rs	/^pub struct StreamDeserializer<'de, R, T> {$/;"	s
 StreamLog	/home/trey/.cargo/registry/src/github.com-1ecc6299db9ec823/actix-web-4.0.0-rc.3/src/middleware/logger.rs	/^    pub struct StreamLog<B> {$/;"	s
+StreamState	/home/trey/code/self-referential/src/byte_stream.rs	/^enum StreamState {$/;"	g
 StringDeserializer	/home/trey/.cargo/registry/src/github.com-1ecc6299db9ec823/serde-1.0.136/src/de/value.rs	/^pub struct StringDeserializer<E> {$/;"	s
 StringExtractFut	/home/trey/.cargo/registry/src/github.com-1ecc6299db9ec823/actix-web-4.0.0-rc.3/src/types/payload.rs	/^pub struct StringExtractFut {$/;"	s
 StringInPlaceVisitor	/home/trey/.cargo/registry/src/github.com-1ecc6299db9ec823/serde-1.0.136/src/de/impls.rs	/^struct StringInPlaceVisitor<'a>(&'a mut String);$/;"	s
@@ -4164,9 +4165,9 @@ new	/home/trey/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.17.0/src/
 new	/home/trey/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.17.0/src/time/driver/entry.rs	/^    fn new() -> Self {$/;"	f
 new	/home/trey/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.17.0/src/time/driver/mod.rs	/^    fn new(driver: &Driver<P>) -> TimerUnpark<P> {$/;"	f
 new	/home/trey/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.17.0/src/util/try_lock.rs	/^macro_rules! new {$/;"	d
-new	/home/trey/code/self-referential/src/byte_stream.rs	/^    pub fn new(pool: &'_ SqlitePool, sql: &str, results: Option<u32>) -> Pin<Box<ByteStream<'s, R>>>$/;"	f
-new	/home/trey/code/self-referential/src/wrapped_future.rs	/^    pub fn new<'f>(pool: &'f SqlitePool, name: &str) -> Pin<Box<WrappedFuture<'f>>>$/;"	f
-new	/home/trey/code/self-referential/src/wrapped_stream.rs	/^    pub fn new(pool: &'s SqlitePool, name: &str) -> Pin<Box<WrappedStream<'s>>>$/;"	f
+new	/home/trey/code/self-referential/src/byte_stream.rs	/^    pub fn new($/;"	f
+new	/home/trey/code/self-referential/src/wrapped_future.rs	/^    pub fn new<'f>(pool: &'f SqlitePool, name: &str) -> Pin<Box<WrappedFuture<'f>>> {$/;"	f
+new	/home/trey/code/self-referential/src/wrapped_stream.rs	/^    pub fn new(pool: &'s SqlitePool, name: &str) -> Pin<Box<WrappedStream<'s>>> {$/;"	f
 new_current_thread	/home/trey/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.17.0/src/runtime/builder.rs	/^    pub fn new_current_thread() -> Builder {$/;"	f
 new_for_aio	/home/trey/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.17.0/src/io/bsd/poll_aio.rs	/^    pub fn new_for_aio(io: E) -> io::Result<Self> {$/;"	f
 new_for_lio	/home/trey/.cargo/registry/src/github.com-1ecc6299db9ec823/tokio-1.17.0/src/io/bsd/poll_aio.rs	/^    pub fn new_for_lio(io: E) -> io::Result<Self> {$/;"	f
